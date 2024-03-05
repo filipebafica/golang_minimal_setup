@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+  my_app_dev:
+    build:
+      context: .
+      dockerfile: ./build/Dockerfile
+      target: dev
+    ports:
+      - 8000:8000
+      - 2345:2345
+    volumes:
+      - ./:/app/
+    networks:
+    - my_app
+
+  my_app_app:
+    container_name: my_app_app
+    image: my_app_app
+    build:
+      context: .
+      dockerfile: ./build/Dockerfile
+      target: prod
+    ports:
+      - 8000:8000
+
+networks:
+  my_app:
+    name: my_app
